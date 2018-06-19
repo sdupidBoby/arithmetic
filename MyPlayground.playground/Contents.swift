@@ -20,7 +20,7 @@ print(srotArr)
 
 func c()->Void{
 //    print(message: "冒泡----开始")
-//    print(bubbleSort(arr: srotArr))
+    print(bubbleSort(arr: srotArr))
 //    print(message:  "冒泡----结束")
     
 //    print(message: "选择----开始")
@@ -34,6 +34,10 @@ func c()->Void{
 //    print(message: "归并----开始")
 //    print(mergeSort(arr: srotArr))
 //    print(message:  "归并----结束")
+    
+//    print(message: "快速----开始")
+//    print(quickSort(list: &srotArr, low: 0, high: srotArr.count - 1))
+//    print(message:  "快速----结束")
 
 }
 
@@ -146,6 +150,50 @@ func mergeArray(left: Array<Int>, right: Array<Int>) -> Array<Int> {
         rightIndex += 1
     }
     return resultList
+}
+
+
+
+
+/// - parameter list: 要排序的数组
+/// - parameter low: 数组的上界
+/// - parameter high:
+private func quickSort(list: inout Array<Int>, low: Int, high: Int) { /// 快速排序 时间复杂度----O(nlog2n)
+    if low < high {
+        let mid = partition(list: &list, low: low, high: high)
+        quickSort(list: &list, low: low, high: mid - 1)   //递归前半部分
+        quickSort(list: &list, low: mid + 1, high: high)  //递归后半部分
+    }
+}
+
+/// 将数组以第一个值为准分成两部分，前半部分比该值要小，后半部分比该值要大
+///
+/// - parameter list: 要二分的数组
+/// - parameter low:  数组的下界
+/// - parameter high: 数组的上界
+///
+/// - returns: 分界点
+private func partition(list: inout Array<Int>, low: Int, high: Int) -> Int {
+    var low = low
+    var high = high
+    let temp = list[low]
+    print("low[\(low)]:\(list[low]), high[\(high)]:\(list[high])")
+    while low < high {
+        
+        while low < high && list[high] >= temp {
+            high -= 1
+        }
+        list[low] = list[high]
+        
+        while low < high && list[low] <= temp {
+            low += 1
+        }
+        list[high] = list[low]
+    }
+    list[low] = temp
+    print("mid[\(low)]:\(list[low])")
+    print("\(list)\n")
+    return low
 }
 
 
