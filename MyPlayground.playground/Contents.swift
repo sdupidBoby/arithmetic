@@ -180,7 +180,7 @@ func mergeArray(left: Array<Int>, right: Array<Int>) -> Array<Int> {
 private func quickSort(list: inout Array<Int>, low: Int, high: Int) { /// 快速排序 时间复杂度----O(nlog2n)
     if low < high {
         let mid = partition(list: &list, low: low, high: high)
-        quickSort(list: &list, low: low, high: mid - 1)   //递归前半部分
+        quickSort(list: &list, low: low, high: mid - 1)   //递归前半部分  二分思想
         quickSort(list: &list, low: mid + 1, high: high)  //递归后半部分
     }
 }
