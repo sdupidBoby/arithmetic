@@ -1,5 +1,5 @@
 //: Playground - noun: a place where people can play
-
+//http://www.cnblogs.com/eniac12/p/5329396.html  一个有排序动画博客
 import UIKit
 
 func Log<N>(message:N){
@@ -19,29 +19,39 @@ var srotArr: [Int] = [6, 5, 4, 3, 800, 1, 8, 7, 2, 4]
 print(srotArr)
 
 func c()->Void{
-//    print(message: "冒泡----开始")
-    print(bubbleSort(arr: srotArr))
-//    print(message:  "冒泡----结束")
+    print(message: "冒泡----开始")
+    let sortedArr = bubbleSort(arr: srotArr)
+    print(sortedArr)
+    print(message:  "冒泡----结束")
     
 //    print(message: "选择----开始")
-//    print(selectionSort(arr: srotArr))
+//    let sortedArr = selectionSort(arr: srotArr)
+//    print(sortedArr)
 //    print(message:  "选择----结束")
     
 //    print(message: "插入----开始")
-//    print(insertionSort(arr: srotArr))
+//    let sortedArr = insertionSort(arr: srotArr)
+//    print(sortedArr)
 //    print(message:  "插入----结束")
     
 //    print(message: "归并----开始")
-//    print(mergeSort(arr: srotArr))
+//    let sortedArr = mergeSort(arr: srotArr)
+//    print(sortedArr)
 //    print(message:  "归并----结束")
     
 //    print(message: "快速----开始")
-//    print(quickSort(list: &srotArr, low: 0, high: srotArr.count - 1))
+//    quickSort(list: &srotArr, low: 0, high: srotArr.count-1)
+//    let sortedArr = srotArr
+//    print(sortedArr)
 //    print(message:  "快速----结束")
+    
+    print(message: "二分查找----开始")
+    print("找到下标：",binarySearch(sortedArr: sortedArr, searchItem: 8))
+    print(message:  "二分查找----结束")
 
 }
 
-func bubbleSort(arr: Array<Int>) -> Array<Any>{// 冒泡 时间复杂度----O(n^2)
+func bubbleSort(arr: Array<Int>) -> Array<Int>{// 冒泡 时间复杂度----O(n^2)
     let length = arr.count
     var arr = arr
     for i in 0..<(length-1) {
@@ -62,7 +72,7 @@ func bubbleSort(arr: Array<Int>) -> Array<Any>{// 冒泡 时间复杂度----O(n^
 }
 
 
-func selectionSort(arr: Array<Int>) -> Array<Any> {// 选择 时间复杂度----O(n^2)，空间复杂都很低O1 （👍）
+func selectionSort(arr: Array<Int>) -> Array<Int> {// 选择 时间复杂度----O(n^2)，空间复杂都很低O1 （👍n较小）
     var arr = arr
     let len = arr.count
     var minIndex:Int,temp: Int
@@ -84,7 +94,7 @@ func selectionSort(arr: Array<Int>) -> Array<Any> {// 选择 时间复杂度----
     return arr
 }
 
-func insertionSort(arr: Array<Int>) -> Array<Any> { //插入排序 时间复杂度----O(n^2)
+func insertionSort(arr: Array<Int>) -> Array<Int> { //插入排序 时间复杂度----O(n^2)
     var arr = arr
     let len = arr.count
     var preIndex, current:Int
@@ -103,7 +113,7 @@ func insertionSort(arr: Array<Int>) -> Array<Any> { //插入排序 时间复杂�
 }
 
 
-func mergeSort(arr: Array<Int>) -> Array<Int> {  // 采用自上而下的递归方法. 归并.时间复杂度----O(nlog2n)
+func mergeSort(arr: Array<Int>) -> Array<Int> {  // 采用自上而下的递归方法. 归并.时间复杂度----O(nlog2n) （👍 n较大）
     //将数组中的每一个元素放入一个数组中
     var tempArray: Array<Array<Int>> = []
     for item in arr {
@@ -115,12 +125,21 @@ func mergeSort(arr: Array<Int>) -> Array<Int> {  // 采用自上而下的递归�
     //合并到一个数组为止
     while tempArray.count > 1 {
         print("最外层--------------：\(tempArray)")
+        
+//        for i in 0..<(tempArray.count - 1) {
+//            if i >= (tempArray.count-1) {
+//                continue;
+//            }
+            //TODO:  用while的方式更好
+//        }
         var i = 0
         while i < (tempArray.count - 1) { // 一层一层的合并
+            //TODO:
             print("将\(tempArray[i])与\(tempArray[i+1])合并")
             tempArray[i] = mergeArray(left: tempArray[i], right: tempArray[i + 1])
             tempArray.remove(at: i + 1) //移除被合并的元素
             print(message: "合并结果为：\(tempArray[i])\ntemp:\(tempArray), count:\(tempArray.count), i:\(i+1)\n")
+            
             i += 1
         }
     }
@@ -191,9 +210,32 @@ private func partition(list: inout Array<Int>, low: Int, high: Int) -> Int {
         list[high] = list[low]
     }
     list[low] = temp
-    print("mid[\(low)]:\(list[low])")
-    print("\(list)\n")
+    print("mid[\(low)]:\(list[low]), list:\(list)\n")
     return low
+}
+
+func binarySearch(sortedArr: Array<Int>,searchItem: Int) -> Int{
+    
+    var start = sortedArr.startIndex, end = sortedArr.endIndex
+    
+    while start <= end {
+        let middle = (end+start) / 2
+        
+        print("middle: ",middle)
+        
+        if sortedArr[middle] == searchItem {
+            return middle
+        }
+        
+        if sortedArr[middle] > searchItem {
+            end = middle - 1
+        }
+        
+        if sortedArr[middle] < searchItem {
+            start = middle+1
+        }
+    }
+    return -1
 }
 
 
