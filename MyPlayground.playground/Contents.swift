@@ -145,7 +145,7 @@ func mergeSort(arr: Array<Int>) -> Array<Int> {  // 采用自上而下的递归�
     }
     return tempArray.first!
 }
-/* 归并排序中的“并”--合并：将两个数组进行有序合并 */
+/* 归并排序中的“并”--合并：将两个数组进行有序合并成一个有序数组 */
 func mergeArray(left: Array<Int>, right: Array<Int>) -> Array<Int> {
     var resultList: Array<Int> = []
     var leftIndex = 0
