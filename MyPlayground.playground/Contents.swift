@@ -136,8 +136,10 @@ func mergeSort(arr: Array<Int>) -> Array<Int> {  // 采用自上而下的递归�
         while i < (tempArray.count - 1) { // 一层一层的合并
             //TODO:
             print("将\(tempArray[i])与\(tempArray[i+1])合并")
+            
             tempArray[i] = mergeArray(left: tempArray[i], right: tempArray[i + 1])
             tempArray.remove(at: i + 1) //移除被合并的元素
+            
             print(message: "合并结果为：\(tempArray[i])\ntemp:\(tempArray), count:\(tempArray.count), i:\(i+1)\n")
             
             i += 1
